@@ -10,7 +10,7 @@ router.get("/test", (req,res)=>{
 
 router.post("/send", async function (req,res){
     try {
-        let email = req.body.email;
+        let {email, subject, text} = req.body;
         
         const transporter = nodemailer.createTransport({
             service: "gmail",
@@ -22,8 +22,8 @@ router.post("/send", async function (req,res){
 
         const info = await transporter.sendMail({ 
             to: email,
-            subject: "This email is sended through node-mailer",
-            text: `Hello ${email}, Thanks for reviewing my project.`
+            subject: subject,
+            text: text
         })
 
         res.status(201).send({status: true, message: info.response})
