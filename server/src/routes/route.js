@@ -18,8 +18,8 @@ router.post("/send", async function (req,res){
         const transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
-                user: process.env.USERID,
-                pass: process.env.PASSWORD
+                user: process.env.USERID,  // Enter Your Gmail Id here
+                pass: process.env.PASSWORD  // Go to Gmail setting > Security > search App password > Select App- Mail and select device- windows computer > Then Generated password you have to enter
             }
         })
 
