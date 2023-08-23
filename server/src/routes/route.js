@@ -10,7 +10,10 @@ router.get("/test", (req,res)=>{
 
 router.post("/send", async function (req,res){
     try {
-        let {email, subject, text} = req.body;
+        let {email, subject, message} = req.body;
+
+        if(!email) return res.status(400).send({status: false, data: "Email cannot be empty"})
+        if(!message) return res.status(400).send({status: false, data: "message cannot be empty"})
         
         const transporter = nodemailer.createTransport({
             service: "gmail",
@@ -23,10 +26,10 @@ router.post("/send", async function (req,res){
         const info = await transporter.sendMail({ 
             to: email,
             subject: subject,
-            text: text
+            text: message
         })
 
-        res.status(201).send({status: true, message: info.response})
+        res.status(201).send({status: true, data: "Email send successfully..."})
     } 
     catch (error) {
         res.status(500).send({status: false, error: error});
